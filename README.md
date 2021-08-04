@@ -1,4 +1,4 @@
-# Semantic-analysis-Text-mining-ISIS-Twitter-activity
+# Semantic-analysis-Text-mining-ISIS-Twitter-activity using R
 
 
 ## INTRODUCTION 
