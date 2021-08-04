@@ -1,7 +1,9 @@
 # Semantic-analysis-Text-mining-ISIS-Twitter-activity
 
-INTRODUCTION 
-ISIS OVER SOCIAL MEDIA 
+
+## INTRODUCTION 
+
+### ISIS OVER SOCIAL MEDIA 
 The Islamic State, known as ISIS or ISIL, has exploited social media, most notoriously 
 Twitter, to send its propaganda and messaging out to the world and to draw in people 
 vulnerable to radicalization. By virtue of its large number of supporters and highly 
@@ -27,7 +29,8 @@ From 2013 to 2014, the organization primarily used mainstream platforms such
 as Twitter, Facebook, and YouTube. In 2014, these large social media platforms removed 
 ISIS content. Since then, ISIS has chosen to utilize social media platforms that either 
 protect their content or allow for content to quickly be reposted. 
-TWITTER 
+
+### TWITTER 
 During 2014, there was an estimated 46,000 to 90,000 Twitter accounts that advocated 
 for ISIS or were run by supporters of the group.[11] In 2015, Twitter reported that it 
 banned 125,000 ISIS sympathetic accounts.[9] In 2016, it published an update of 325,000 
@@ -41,7 +44,8 @@ accounts are traced back to the “Baqiya family,” which is an online network 
 of ISIS followers.[10] Many of these accounts are active during important ISIS military 
 victories. During the ISIS march on Mosul, there were about 42,000 tweets on Twitter 
 supporting the invasion 
-SENTIMENT ANALYSIS 
+
+### SENTIMENT ANALYSIS 
 Sentiment analysis is contextual mining of text which identifies and extracts subjective 
 information in source material, and helping a business to understand the social sentiment 
 of their brand, product or service while monitoring online conversations. However, 
@@ -50,19 +54,24 @@ count based metrics. This is akin to just scratching the surface and missing out
 high value insights that are waiting to be discovered. Sentiment Analysis is the most 
 common text classification tool that analyses an incoming message and tells whether the 
 underlying sentiment is positive, negative our neutral. 
-TEXT ANALYSIS 
+
+### TEXT ANALYSIS 
 Text mining, also referred to as text data mining, similar to text analytics, is the process 
 of deriving high-quality information from text. It involves the discovery by computer of 
 new, previously unknown information, by automatically extracting information from 
 different written resources. 
-WORDCLOUD 
+
+### WORDCLOUD 
 A word cloud is an image made of words that together resemble a cloudy shape. 
 The size of a word shows how important it is e.g. how often it appears in a text 
 — its frequency. 
 People typically use word clouds to easily produce a summary of large documents 
 (reports, speeches), to create art on a topic (gifts, displays) or to visualise data 
 (tables, surveys). 
-ABOUT THE DATASET 
+
+
+## ABOUT THE DATASET 
+
 Dataset named “How ISIS uses twitter tweets” which includes about 11000 tweets from 
 more than 100 tweeter users from all over the world. This dataset was found on 
 data.world (https://data.world/socialmediadata/how-isis-usestwitter/workspace/file?filename=how-isis-uses-twitter%2Ftweets.csv). 
@@ -87,23 +96,32 @@ spotted as ISIS fanboy...
 format. Should be easy to parse. 
 * `tweets`: The meat in the dataset, 11 of which seems to be translated into English from 
 the original version. 
-BUSINESS OBJECTIVE 
+
+
+## BUSINESS OBJECTIVE 
 Identifying violent extremists 
-BUSINESS CONSTRAINTS 
+
+
+## BUSINESS CONSTRAINTS 
 No innocent user should be analysed wrongly 
-ANALYSIS 
+
+
+## ANALYSIS 
 Our objective in this analysis is to analyse the dataset given, refine it and do text analysis on it. We 
 tried using sentiment analysis over the tweets to identify or classify tweets as positive, negative or 
 neutral. On that basis we tried to identify the real user for the given username. Using text analysis, 
 we highlighted the important words used in the most with highest frequency , we plotted 2 bar 
 graphs to analyse the frequency of those words. A word cloud is also plotted to show the most 
 highlighted words in the tweet. 
+
 Due to time limitation, and unavailability of .txt files for ppositive, negative and neutral words, we 
 were not able to identify the semantics of the tweets. 
 Figure 1 : Frequency of the all the words in the tweets 
 Figure 2 : Words whose lowest frequency is 300 
 Figure 3 : Wordcloud highlighting most used words in tweets 
-CONCLUSION 
+
+
+## CONCLUSION 
 Sine words like ‘killed’, ‘isis’, ‘army’, ‘attack’ were used frequently in the tweets , we can 
 conclude that , the users in the dataset are involved in some mysterious or illegal 
 activities. 
