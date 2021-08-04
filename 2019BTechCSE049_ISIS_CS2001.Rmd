@@ -1,0 +1,163 @@
+---
+title: "Business analytics with R"
+output: html_notebook
+---
+
+#Help taken from online sites to study about semantic analysis and replacement using gsub and regex#
+```{r}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(wordcloud)
+```
+
+```{r}
+install.packages("tm")
+library(tm)
+```
+
+```{r}
+install.packages("stringr")
+library(stringr)
+```
+
+```{r}
+isis <- read.csv(file = "D:/3rd Semester/how-isis-uses-twitter_tweets.csv", header = TRUE)
+show(isis)
+```
+
+```{r}
+library(readr)
+attach(isis)
+```
+
+```{r}
+sapply(isis, function(x) sum(is.na(x)))
+```
+
+```{r}
+summary(isis)
+```
+
+```{r}
+dim(isis)
+```
+
+```{r}
+str(isis)
+```
+
+```{r}
+isis1 <- separate(isis,
+                  col = time ,
+                  into = c("Date",  "Time"),
+                  sep = " ")
+
+isis1
+```
+
+```{r}
+isis1$Date <- gsub('/', '-', isis1$Date)
+isis1
+```
+
+```{r}
+isis1$Date <- as.Date(isis1$Date,"%Y-%m-%d")
+attach(isis1)
+```
+
+```{r}
+str(tweets)
+length(tweets)
+View(tweets)
+```
+
+```{r}
+corp <- Corpus(VectorSource(tweet))
+corp <- tm_map(corp,removeWords,stopwords('english'))
+tweet = tm_map(corp, tolower)
+tweet<-str_replace_all(tweet,"[^[:graph:]]"," ")
+tweet <- str_replace_all(tweet,'https'," ")
+tweet <- str_replace_all(tweet,'amp'," ")
+tweet = gsub("(f|ht)(tp)(s?)(://)(.*)[.|/](.*)", " ", tweet)
+tweet = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", " ", tweet)
+tweet = gsub("http\\w+", " ", tweet)
+tweet = gsub("[ \t]{2,}", " ", tweet)
+tweet = gsub("^\\s+|\\s+$", "", tweet)
+tweet = gsub("[[:punct:]]", " ", tweet)
+tweet = gsub("[[:digit:]]", " ", tweet)
+tweet <- gsub("english translation", "", tweet)
+tdm <- TermDocumentMatrix(corp) 
+```
+
+```{r}
+freq.terms <- findFreqTerms(tdm,lowfreq=300)
+term.freq <- rowSums(as.matrix(tdm))
+term.freq <- subset(term.freq, term.freq >= 300)
+df <- data.frame(term = names(term.freq), freq = term.freq)
+ggplot(df, aes(x = term, y = freq)) + 
+    geom_bar(stat = "identity") + 
+    xlab("Words used in teets") + 
+    ylab("Frequency") 
+```
+
+```{r}
+tdm <- as.matrix(tdm)
+w <- rowSums(tdm)
+w_sub <- subset(w, w >= 65)
+w_sub
+```
+
+```{r}
+barplot(w_sub, las=2, col = rainbow(w_sub))
+```
+
+```{r}
+freq <- function(x){
+    ngramFreq <- as.data.frame(rowSums(as.matrix(tdm)))
+    ngramFreq <- cbind(rownames(ngramFreq), ngramFreq)
+    colnames(ngramFreq) <- c("Words", "Frequency")
+    ngramFreq <- arrange(ngramFreq, desc(Frequency))
+    ngramFreq
+}
+tweets <- Corpus(VectorSource(corp[[8]]$content))
+tweets_frequency <- freq(tweets)
+tweets_wordcloud <- function(x){
+    wordcloud(x$Words, x$Frequency, max.words = 200, random.order = FALSE)
+}
+tweets_wordcloud(tweets_frequency)
+```
+
+```{r}
+# lOADING Positive and Negative words  
+pos.words <- readLines(file.choose()) # can input a list of positive words... not avaialable right now	
+```
+
+```{r}
+neg.words <- readLines(file.choose()) 	# can input a list of negative words... not avaialable right now	
+```
+
+```{r}
+stopwdrds <-  readLines(file.choose())  # can input a list of neutral words... not avaialable right now	
+```
+
+```{r}
+### Positive word cloud ###
+pos.matches <- match(names(w_sub1), pos.words) #matching the word tokens and +ve words
+pos.matches <- !is.na(pos.matches) #storing word tokens that matched with +ve words
+freq_pos <- w_sub1[pos.matches]
+names <- names(freq_pos)
+windows()
+wordcloud(names, freq_pos, scale=c(4,1), colors = brewer.pal(8,"Dark2"))
+```
+
+```{r}
+### Matching Negative words ###
+neg.matches <- match(names(w_sub), neg.words)
+neg.matches <- !is.na(neg.matches)
+freq_neg <- w_sub[neg.matches]
+names <- names(freq_neg)
+windows()
+wordcloud(names, freq_neg, scale=c(4,.5), colors = brewer.pal(8, "Dark2"))
+```
+
